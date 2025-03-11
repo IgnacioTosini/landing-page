@@ -1,9 +1,12 @@
 import { FaSearch, FaEnvelope, FaShoppingBag } from 'react-icons/fa';
-import '../../styles/components/main/_howToBuy.scss';
 import { InstagramButton } from '../shared/InstagramButton';
 import { IconContainer } from '../shared/IconContainer';
+import { useInstagramPosts } from '../../hooks/useInstagramPosts';
+import '../../styles/components/main/_howToBuy.scss';
 
 export const HowToBuy = () => {
+    const { instagramUrl } = useInstagramPosts();
+
     return (
         <section className="how-to-buy">
             <h2>¿Cómo Comprar?</h2>
@@ -30,7 +33,7 @@ export const HowToBuy = () => {
             </div>
 
             <a
-                href="https://www.instagram.com"
+                href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="instagram-button"
