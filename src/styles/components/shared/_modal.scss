@@ -1,0 +1,161 @@
+@use "../../variables" as vars;
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, backdrop-filter;
+    padding: 2rem;
+
+    @media (max-width: 768px) {
+        padding: 1rem;
+    }
+}
+
+.modal-wrapper {
+    position: relative;
+    max-width: min(90vw, 1200px);
+    max-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    animation: modalIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img, video {
+        max-width: 100%;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 1rem;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+        will-change: transform;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .modal-navigation {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0;
+        pointer-events: none;
+
+        .nav-button {
+            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            color: vars.$color-text-black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            will-change: transform;
+            z-index: 2;
+            font-size: 1.25rem;
+            margin: 0 -1.75rem;
+            opacity: 0.8;
+
+            &:hover {
+                transform: scale(1.1);
+                background: white;
+                opacity: 1;
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            }
+
+            &:active {
+                transform: scale(0.95);
+            }
+
+            &.prev {
+                transform-origin: left center;
+                padding-right: 0.25rem;
+            }
+
+            &.next {
+                transform-origin: right center;
+                padding-left: 0.25rem;
+            }
+
+            @media (max-width: 768px) {
+                width: 2.75rem;
+                height: 2.75rem;
+                font-size: 1rem;
+                margin: 0 -1rem;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    color: vars.$color-text-black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    will-change: transform;
+    z-index: 10000;
+
+    &:hover {
+        transform: scale(1.1) rotate(8deg);
+        background: white;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    @media (max-width: 768px) {
+        top: 5px;
+        right: 5px;
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.25rem;
+    }
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

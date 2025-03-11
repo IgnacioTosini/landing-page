@@ -1,0 +1,120 @@
+@use '../../variables' as vars;
+@use 'sass:color';
+
+@keyframes subtle-bounce {
+
+    0%,
+    100% {
+        transform: translateY(-2px);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+.instagram-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(0.5rem, 1vw, 1.5rem) clamp(1rem, 2vw, 2rem);
+    min-height: 1rem;
+    background-color: vars.$primary-100;
+    border: none;
+    border-radius: clamp(0.75rem, 1.5vw, 1rem);
+    font-size: clamp(0.875rem, 2vw, 1.125rem);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0);
+    will-change: transform;
+
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
+        width: 150px;
+        height: 150px;
+        margin: -75px;
+        transform: scale(0);
+        opacity: 0;
+        pointer-events: none;
+        transition: none;
+
+        &.active {
+            transform: scale(4);
+            opacity: 0;
+            transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+        }
+    }
+
+    &:hover {
+        transform: translateY(-1px);
+
+        .icon {
+            transform: rotate(8deg) scale(1.08);
+        }
+
+        .text-button {
+            transform: translateY(-0.15rem);
+            letter-spacing: 0.5px;
+        }
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        animation: none;
+    }
+
+    .icon {
+        margin-right: clamp(0.25rem, 1vw, 1rem);
+        width: clamp(1.5rem, 3vw, 2.5rem);
+        height: clamp(1.5rem, 3vw, 2.5rem);
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        color: vars.$color-text-black;
+        will-change: transform;
+    }
+
+    .text-button {
+        color: vars.$color-text-black;
+        font-weight: bold;
+        white-space: nowrap;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: 0;
+        will-change: transform, letter-spacing;
+    }
+}
+
+.instagram-button--white {
+    background-color: vars.$color-background-white;
+    color: vars.$color-text-black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+    &:hover {
+        background-color: color.adjust(vars.$color-background-white, $lightness: -2%);
+    }
+
+    .ripple {
+        background: rgba(0, 0, 0, 0.08);
+    }
+}
+
+@media (max-width: 768px) {
+    .instagram-button {
+        max-width: 100%;
+        width: fit-content;
+
+        &:hover {
+            animation: none;
+            transform: translateY(-1px);
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .instagram-button {
+        width: 100%;
+    }
+}

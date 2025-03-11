@@ -1,0 +1,38 @@
+@use '../../variables' as vars;
+
+.footer {
+    @include vars.flex(row, space-between, center);
+    padding: 1rem 2rem;
+    background-color: vars.$color-background-white;
+    border-top: 1px solid #E5E7EB;
+    font-size: 0.875rem;
+    color: #4B5563;
+
+    p {
+        margin: 0;
+    }
+
+    .contact-info {
+        @include vars.flex(row, center, center, wrap);
+        gap: 0.5rem;
+
+        a {
+            color: #4B5563;
+            text-decoration: none;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: vars.$primary-100;
+            }
+        }
+
+        svg {
+            font-size: 1.25rem;
+            color: #4B5563;
+        }
+
+        span {
+            margin-right: 0.5rem;
+        }
+    }
+}

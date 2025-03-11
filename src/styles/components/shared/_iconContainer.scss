@@ -1,0 +1,12 @@
+@use '../../variables' as vars;
+
+.icon-container {
+    background: #A16207;
+    color: white;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    @include vars.center-content;
+    font-size: 1.5rem;
+    margin: 0 auto 1rem;
+}
