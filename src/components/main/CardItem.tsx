@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useGallery } from '../../hooks/useGallery';
 import { InstagramPost } from '../../types/instagram';
 import '../../styles/components/main/_cardItem.scss';
 import { InstagramButton } from '../shared/InstagramButton';
@@ -10,53 +10,21 @@ interface CardItemProps {
 }
 
 export const CardItem = ({ post }: CardItemProps) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleNextMedia = () => {
-        if (post.children?.data && currentMediaIndex < post.children.data.length - 1) {
-            setCurrentMediaIndex(prev => prev + 1);
-        }
-    };
-
-    const handlePrevMedia = () => {
-        if (currentMediaIndex > 0) {
-            setCurrentMediaIndex(prev => prev - 1);
-        }
-    };
-
-    const getMediaUrl = (index: number) => {
-        if (post.children?.data && post.children.data[index]) {
-            return post.children.data[index].media_url;
-        }
-        return post.media_url;
-    };
-
-    const getThumbnailUrl = (index: number) => {
-        if (post.children?.data && post.children.data[index]) {
-            return post.children.data[index].thumbnail_url || post.children.data[index].media_url;
-        }
-        return post.thumbnail_url || post.media_url;
-    };
-
-    const isVideo = (index: number) => {
-        if (post.children?.data && post.children.data[index]) {
-            return post.children.data[index].media_type === 'VIDEO';
-        }
-        return post.media_type === 'VIDEO';
-    };
+    const {
+        isModalOpen,
+        openModal,
+        closeModal,
+        currentMediaIndex,
+        nextMedia,
+        prevMedia,
+        getMediaUrl,
+        getThumbnailUrl,
+        isVideo,
+    } = useGallery(post);
 
     return (
         <div className="card-item">
-            <div className="card-image" onClick={handleOpenModal}>
+            <div className="card-image" onClick={openModal}>
                 {isVideo(0) ? (
                     <img
                         src={getThumbnailUrl(0)}
@@ -92,7 +60,7 @@ export const CardItem = ({ post }: CardItemProps) => {
                     <InstagramButton showIcon text="Ver en Instagram" colorButton />
                 </a>
             </div>
-            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <div className="modal-content">
                     {isVideo(currentMediaIndex) ? (
                         <video controls>
@@ -104,10 +72,10 @@ export const CardItem = ({ post }: CardItemProps) => {
                     )}
                     {post.children?.data && post.children.data.length > 1 && (
                         <div className="modal-navigation">
-                            <button className="nav-button prev" onClick={handlePrevMedia} disabled={currentMediaIndex === 0}>
+                            <button className="nav-button prev" onClick={prevMedia} disabled={currentMediaIndex === 0}>
                                 &lt;
                             </button>
-                            <button className="nav-button next" onClick={handleNextMedia} disabled={currentMediaIndex === post.children.data.length - 1}>
+                            <button className="nav-button next" onClick={nextMedia} disabled={currentMediaIndex === post.children.data.length - 1}>
                                 &gt;
                             </button>
                         </div>

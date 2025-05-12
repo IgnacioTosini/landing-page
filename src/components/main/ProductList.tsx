@@ -1,6 +1,7 @@
 import { useInstagramPosts } from '../../hooks/useInstagramPosts';
-import '../../styles/components/main/_productList.scss';
 import { CardItem } from './CardItem';
+import { CardItemSkeleton } from '../shared/CardItemSkeleton';
+import '../../styles/components/main/_productList.scss';
 
 export const ProductList = () => {
     const { posts, loadMorePosts, loading, hasMore } = useInstagramPosts(10);
@@ -23,9 +24,11 @@ export const ProductList = () => {
 
             <section className="productList">
                 <div className="products-container">
-                    {posts.map(post => (
-                        <CardItem key={post.id} post={post} />
-                    ))}
+                    {loading && posts.length === 0
+                        ? Array.from({ length: 3 }).map((_, i) => <CardItemSkeleton key={i} />)
+                        : posts.map(post => (
+                            <CardItem key={post.id} post={post} />
+                        ))}
                 </div>
                 {hasMore && (
                     <div className="pagination">

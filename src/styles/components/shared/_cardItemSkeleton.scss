@@ -1,0 +1,55 @@
+.skeleton {
+    animation: skeleton-loading 1.2s infinite linear alternate;
+    background: #e0e0e0;
+}
+
+.skeleton-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 1rem 1rem 0 0;
+    background: #e0e0e0;
+}
+
+.skeleton-counter {
+    width: 40px;
+    height: 18px;
+    border-radius: 8px;
+    background: #d1d1d1;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.skeleton-video {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #d1d1d1;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.skeleton-title {
+    width: 70%;
+    height: 22px;
+    margin: 18px 0 10px 0;
+    border-radius: 6px;
+    background: #e0e0e0;
+}
+
+.skeleton-button {
+    width: 120px;
+    height: 36px;
+    border-radius: 18px;
+    background: #d1d1d1;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: #e0e0e0;
+    }
+    100% {
+        background-color: #f5f5f5;
+    }
+}
